@@ -38,7 +38,7 @@ public static class Arrays
         // be implemented by another person.
 
         // First, I can grab the numbers from the specified index all the way to the end by subtracting the amount to the length of the data, and use the GetRange method to create a new array with the last values of the original array.
-        // With this new array, I can now append to it the starting values of the original array using the AddRange method
+        // With this new array, I can now remove those same values from the original array with the RemoveRange method and insert them at the start of the original array with the InsertRange method
 
         int startIndex = data.Count - amount;
         List<int> lastValues = data.GetRange(startIndex, amount);
