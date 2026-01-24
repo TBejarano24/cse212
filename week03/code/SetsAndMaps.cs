@@ -147,7 +147,6 @@ public static class SetsAndMaps
                 }
                 else
                 {
-                    Debug.WriteLine("Aca");
                     return true;
                 }
             }
