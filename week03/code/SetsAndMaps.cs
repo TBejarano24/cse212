@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.Json;
 
 public static class SetsAndMaps
@@ -21,8 +22,34 @@ public static class SetsAndMaps
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
     public static string[] FindPairs(string[] words)
     {
-        // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        HashSet<string> set1 = [.. words];
+        List<string> pairs = [];
+
+        foreach (string word in words)
+        {
+            string word1 = word;
+
+            string firstLetter = word[0].ToString();
+            string lastLetter = word[1].ToString();
+
+            if (lastLetter == firstLetter)
+            {
+                continue;
+            }
+            else
+            {
+                string word2 = lastLetter + firstLetter;
+
+                if (set1.Contains(word2))
+                {
+                    pairs.Add($"{word1} & {word2}");
+                    set1.Remove(word1);
+                    set1.Remove(word2);
+                }
+            }
+
+        }
+        return [.. pairs];
     }
 
     /// <summary>
@@ -42,7 +69,16 @@ public static class SetsAndMaps
         foreach (var line in File.ReadLines(filename))
         {
             var fields = line.Split(",");
-            // TODO Problem 2 - ADD YOUR CODE HERE
+            var degree = fields[3];
+
+            if (!degrees.ContainsKey(degree))
+            {
+                degrees[degree] = 1;
+            }
+            else
+            {
+                degrees[degree] += 1;
+            }
         }
 
         return degrees;
@@ -66,7 +102,57 @@ public static class SetsAndMaps
     /// </summary>
     public static bool IsAnagram(string word1, string word2)
     {
-        // TODO Problem 3 - ADD YOUR CODE HERE
+        var word1Letters = new Dictionary<char, int>();
+
+        word1 = word1.ToLower().Replace(" ", "");
+        word2 = word2.ToLower().Replace(" ", "");
+
+        if (word1.Length != word2.Length)
+        {
+            return false;
+        }
+        else
+        {
+            for (int i = 0; i < word1.Length; i++)
+            {
+                if (!word1Letters.ContainsKey(word1[i]))
+                {
+                    word1Letters[word1[i]] = 1;
+                }
+                else
+                {
+                    word1Letters[word1[i]] += 1;
+                }
+            }
+
+            for (int i = 0; i < word2.Length; i++)
+            {
+                if (!word1Letters.ContainsKey(word2[i]))
+                {
+                    return false;
+                }
+                else
+                {
+                    word1Letters[word2[i]] -= 1;
+                }
+            }
+
+            var word1LettersArr = word1Letters.Values.ToArray();
+            Array.Sort(word1LettersArr, (p1, p2) => p2 - p1);
+            foreach (int item in word1LettersArr)
+            {
+                if (item != 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    Debug.WriteLine("Aca");
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
