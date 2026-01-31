@@ -44,8 +44,8 @@ public class LinkedList : IEnumerable<int>
         // If the list is not empty, then only tail will be affected.
         else
         {
-            newNode.Prev = newNode; // Connect the previous tail to the new node
-            _tail.Next = _tail; // Connect new node to the previous tail
+            newNode.Prev = _tail; // Connect the previous tail to the new node
+            _tail.Next = newNode; // Connect new node to the previous tail
             _tail = newNode; // Update the tail to point to the new node
         }
     }
