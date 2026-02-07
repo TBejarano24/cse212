@@ -65,7 +65,7 @@ public class PermutationsChooseTests
         var results = new List<string>();
         Recursion.PermutationsChoose(results, "ABCD", 2);
 
-        results.Sort();
+        // results.Sort();
         var expected = new List<string> {
             "AB",
             "AC",
